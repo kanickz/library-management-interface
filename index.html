@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <title>Between the Lines — Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#home" aria-label="Between the Lines home"><span class="brand-mark">b<span>.</span></span><span>between<br><strong>the lines</strong></span></a>
+      <div class="side-label">OPEN LIBRARY</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <a class="nav-item active" href="#home" data-view="home"><span>⌂</span> Overview</a>
+        <a class="nav-item" href="#catalog" data-view="catalog"><span>▤</span> Browse all books</a>
+        <a class="nav-item" href="#categories" data-view="catalog"><span>◈</span> Browse categories</a>
+        <a class="nav-item" href="#saved" data-view="saved"><span>♡</span> Reading list <b class="nav-count" id="savedCount">0</b></a>
+        <a class="nav-item" href="#my-books" data-view="my-books"><span>▣</span> My issued books <b class="nav-count" id="borrowedCount">0</b></a>
+      </nav>
+      <div class="side-note"><div class="note-icon">✦</div><p>“A library is not a luxury but one of the necessities of life.”</p><span>— Henry Ward Beecher</span></div>
+      <div class="sidebar-foot"><span class="avatar">R</span><span><strong>Community library</strong><small>Open browsing · no sign-in</small></span><span class="online-dot"></span></div>
+    </aside>
+
+    <main class="main-content" id="home">
+      <header class="topbar"><button class="menu-button" id="menuButton" aria-label="Toggle menu">☰</button><div class="breadcrumb">LIBRARY <span>/</span> <b id="crumbTitle">OVERVIEW</b></div><div class="top-actions"><span class="today" id="todayDate"></span><button class="icon-button" id="themeButton" aria-label="Toggle color theme" title="Toggle theme">◐</button></div></header>
+      <section class="page-heading"><div><p class="eyebrow">A QUIETER KIND OF DISCOVERY</p><h1 id="pageTitle">Good morning, reader<span class="period">.</span></h1><p class="subheading" id="pageSubtitle">Find a new favourite among the shelves.</p></div><button class="primary-button" id="browseButton"><span>＋</span> Explore collection</button></section>
+
+      <section class="hero-card"><div class="hero-copy"><span class="hero-kicker">THIS WEEK’S PICK</span><h2>Stories that<br>stay with you.</h2><p>Thoughtful reads, handpicked by our librarians. Your next chapter is closer than you think.</p><button class="hero-link" id="featuredButton">Meet the collection <span>↗</span></button></div><div class="hero-art" aria-hidden="true"><div class="sun"></div><div class="book book-back"></div><div class="book book-mid"></div><div class="book book-front"><span>THE<br>ART OF<br>NOTICING</span><i>ROB WALKER</i></div><div class="plant">✳</div></div><div class="hero-index">01 <span>—</span> 04</div></section>
+
+      <section class="stats-grid" aria-label="Library overview"><article class="stat-card"><div class="stat-top"><span>BOOKS IN COLLECTION</span><span class="stat-symbol">▤</span></div><strong id="totalBooks">0</strong><small>Curated for curious minds</small></article><article class="stat-card"><div class="stat-top"><span>AVAILABLE COPIES</span><span class="stat-symbol green">↗</span></div><strong id="availableBooks">0</strong><small>Ready for their next reader</small></article><article class="stat-card"><div class="stat-top"><span>COPIES CURRENTLY ISSUED</span><span class="stat-symbol rose">↗</span></div><strong id="issuedCopies">0</strong><small>Tracked with borrower and due dates</small></article><article class="stat-card"><div class="stat-top"><span>ON YOUR READING LIST</span><span class="stat-symbol rose">♡</span></div><strong id="savedBooks">0</strong><small>Saved for a later chapter</small></article></section>
+
+      <section class="issued-panel" id="issuedPanel" hidden><div class="section-heading"><div><p class="eyebrow">CIRCULATION DESK</p><h2>Issued book records</h2></div></div><div class="issued-table-wrap"><table class="issued-table"><thead><tr><th>Book</th><th>Borrower</th><th>Member ID</th><th>Issue date</th><th>Due date</th><th>Status</th><th></th></tr></thead><tbody id="issuedTableBody"></tbody></table></div><p class="issued-empty" id="issuedEmpty" hidden>No books are currently issued.</p></section>
+
+      <section class="collection-section" id="catalog"><div class="section-heading"><div><p class="eyebrow">A PLACE TO BEGIN</p><h2 id="collectionTitle">Book catalogue</h2></div><button class="primary-button add-book-button" id="addBookButton">＋ Add a book</button></div><div class="toolbar" id="categories"><label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search title, author, or ISBN…" aria-label="Search books"><kbd>/</kbd></label><label class="availability-filter">Availability <select id="availabilityFilter" aria-label="Filter by availability"><option value="all">All books</option><option value="available">Available</option><option value="unavailable">Currently borrowed</option></select></label><div class="filters" id="filters" aria-label="Filter by category"></div></div><div class="book-grid" id="bookGrid" aria-live="polite"></div><div class="empty-state" id="emptyState" hidden><span>⌕</span><h3>No books found</h3><p>Try a different title, author, ISBN, or category.</p></div></section>
+      <footer class="footer"><span>BETWEEN THE LINES <i>·</i> OPEN TO EVERY READER</span><span>Browse freely · find your next story.</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog class="book-dialog" id="bookDialog"><button class="dialog-close" id="dialogClose" aria-label="Close details">×</button><div id="dialogContent"></div></dialog>
+  <dialog class="book-dialog form-dialog" id="bookFormDialog"><button class="dialog-close" id="formClose" aria-label="Close form">×</button><p class="eyebrow">LIBRARY RECORD</p><h2 id="formTitle">Add a book</h2><form id="bookForm"><input type="hidden" name="id"><label>Book title<input name="title" required maxlength="100"></label><label>Author<input name="author" required maxlength="100"></label><label>ISBN<input name="isbn" required pattern="[0-9-]{10,17}" placeholder="978-1-23456-789-0"></label><label>Category<input name="genre" required list="categoryOptions" maxlength="40"><datalist id="categoryOptions"><option>Fiction</option><option>Science</option><option>Classic</option><option>History</option><option>Biography</option><option>Fantasy</option><option>Mystery</option><option>Self-help</option></datalist></label><label>Quantity<input name="availability" type="number" min="0" max="999" value="1" required></label><label>Description<textarea name="description" rows="3" maxlength="500"></textarea></label><div class="dialog-action"><button class="primary-button" type="submit">Save book</button><button class="secondary-button" type="button" id="formCancel">Cancel</button></div></form></dialog>
+  <dialog class="book-dialog form-dialog" id="issueDialog"><button class="dialog-close" id="issueClose" aria-label="Close issue form">×</button><p class="eyebrow">ISSUE A COPY</p><h2 id="issueBookTitle">Issue this book</h2><p class="issue-availability" id="issueAvailability"></p><form id="issueForm"><input type="hidden" name="bookId"><label>Borrower name<input name="borrowerName" required maxlength="100" autocomplete="name"></label><label>Student / member ID<input name="borrowerId" required maxlength="40"></label><label>Issue date<input name="issueDate" type="date" required></label><label>Due date<input name="dueDate" type="date" required></label><div class="dialog-action"><button class="primary-button" type="submit">Confirm issue</button><button class="secondary-button" type="button" id="issueCancel">Cancel</button></div></form></dialog>
+</body>
+</html>
+
+
+
+
